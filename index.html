@@ -14,6 +14,128 @@ header{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#101b36
 nav{position:fixed;left:0;right:0;bottom:0;background:#111a2e;border-top:1px solid #ffe49a33;display:flex;gap:8px;padding:9px 10px}nav button{flex:1;border:1px solid #ffe49a44;background:#1b2947;color:#fff6d5;border-radius:13px;padding:10px 4px;font-size:11px;font-weight:950}
 @media(max-width:420px){.matrix{height:730px}.hub{width:126px}.h1,.h3{left:3%}.h2,.h4{right:3%}.hero h1{font-size:27px}.axish{left:6%;right:6%}}
 @media(min-width:720px){.grid{grid-template-columns:repeat(4,1fr)}.time{grid-template-columns:repeat(5,1fr)}.links{grid-template-columns:repeat(4,1fr)}}
+
+/* layout fix v2: label collision + compact common structure */
+.matrix{
+  min-height:820px !important;
+}
+.temple{
+  top:34px !important;
+}
+.axis.v{
+  top:185px !important;
+  height:520px !important;
+}
+.axis.h{
+  top:354px !important;
+  left:10% !important;
+  right:10% !important;
+}
+.center{
+  top:300px !important;
+}
+.fl1{
+  top:202px !important;
+  left:50% !important;
+}
+.fl2{
+  top:340px !important;
+  left:7% !important;
+}
+.fl3{
+  top:340px !important;
+  right:7% !important;
+}
+.fl4{
+  top:545px !important;
+  left:50% !important;
+}
+.h1{
+  left:5% !important;
+  top:225px !important;
+}
+.h2{
+  right:5% !important;
+  top:225px !important;
+}
+.h3{
+  left:5% !important;
+  top:440px !important;
+}
+.h4{
+  right:5% !important;
+  top:440px !important;
+}
+.crack{
+  top:560px !important;
+  height:120px !important;
+}
+.h5{
+  top:665px !important;
+}
+.nextBox{
+  bottom:14px !important;
+  width:78% !important;
+  padding:9px !important;
+  font-size:11px !important;
+}
+.panel{
+  padding:9px 10px !important;
+  min-height:auto !important;
+}
+.panel b{
+  font-size:13px !important;
+}
+.panel p{
+  font-size:10.8px !important;
+  line-height:1.35 !important;
+  margin-top:5px !important;
+}
+.panelGrid{
+  gap:8px !important;
+}
+@media(max-width:420px){
+  .matrix{
+    min-height:790px !important;
+  }
+  .axis.h{
+    top:350px !important;
+    left:6% !important;
+    right:6% !important;
+  }
+  .center{
+    top:300px !important;
+    width:120px !important;
+    height:120px !important;
+  }
+  .hub{
+    width:122px !important;
+    min-height:86px !important;
+    padding:8px 5px !important;
+  }
+  .hub .ico{
+    font-size:23px !important;
+  }
+  .hub b{
+    font-size:11px !important;
+  }
+  .hub small{
+    font-size:9px !important;
+  }
+  .h1{left:3% !important; top:222px !important;}
+  .h2{right:3% !important; top:222px !important;}
+  .h3{left:3% !important; top:435px !important;}
+  .h4{right:3% !important; top:435px !important;}
+  .h5{top:650px !important;}
+  .fl2{left:5% !important; top:337px !important;}
+  .fl3{right:5% !important; top:337px !important;}
+  .fl4{top:535px !important;}
+  .nextBox{
+    width:86% !important;
+    font-size:10.5px !important;
+  }
+}
+
 </style></head><body>
 <header><div class="top"><button class="back" onclick="history.back()">←</button><div class="title"><b>통일왕국 Matrix</b><span>시온 · 성전 · 왕권 · 언약의 황금기</span></div><div class="badge">BC1050~930</div></div></header>
 <main class="wrap">
@@ -26,8 +148,8 @@ nav{position:fixed;left:0;right:0;bottom:0;background:#111a2e;border-top:1px sol
 <button class="hub h2" onclick="goHub('ark-presence')"><div class="ico">📦</div><b>언약궤와 임재</b><small>하나님의 임재 중심</small></button>
 <button class="hub h3 gold" onclick="goHub('david-covenant')"><div class="ico">👑</div><b>다윗언약과 시온</b><small>영원한 왕 약속</small></button>
 <button class="hub h4 gold" onclick="goHub('solomon-temple')"><div class="ico">🏛️</div><b>솔로몬 성전 영광</b><small>왕국의 절정</small></button>
-<div class="crack"></div><button class="hub h5 warn" onclick="goHub('kingdom-division')"><div class="ico">⚡</div><b>왕국 분열</b><small>영광 아래 자란 균열</small></button><div class="next">왕국 분열 이후 → 분열왕국 Matrix로 연결</div></section>
-<div class="st">2. 공통 구조</div><section class="grid"><div class="card"><b>연대</b><p>사울·다윗·솔로몬을 중심으로 상승과 분열을 봅니다.</p></div><div class="card"><b>주변국</b><p>블레셋, 두로, 애굽, 시바와의 전쟁·교류·외교를 봅니다.</p></div><div class="card"><b>핵심사건</b><p>언약궤, 다윗언약, 성전, 왕국분열을 허브로 확장합니다.</p></div><div class="card"><b>연결흐름</b><p>성전의 영광에서 분열왕국의 붕괴로 이어집니다.</p></div></section>
+<div class="crack"></div><button class="hub h5 warn" onclick="goHub('kingdom-division')"><div class="ico">⚡</div><b>왕국 분열</b><small>영광 아래 자란 균열</small></button><div class="next">분열왕국 Matrix로 연결</div></section>
+<div class="st">2. 공통 구조</div><section class="grid"><div class="card"><b>연대</b><p>사울·다윗·솔로몬 흐름.</p></div><div class="card"><b>주변국</b><p>블레셋·두로·애굽·시바.</p></div><div class="card"><b>핵심사건</b><p>언약궤·다윗언약·성전·분열.</p></div><div class="card"><b>연결흐름</b><p>영광에서 분열로 이어짐.</p></div></section>
 <div class="st">3. 연대 흐름</div><section class="time"><div class="t">BC1050<div class="dot"></div>사울 왕국</div><div class="t active">BC1010<div class="dot"></div>다윗 왕권</div><div class="t">BC1003<div class="dot"></div>예루살렘</div><div class="t active">BC966<div class="dot"></div>성전 건축</div><div class="t">BC930<div class="dot"></div>왕국 분열</div></section>
 <div class="st">4. 허브 진입</div><section class="links"><button class="btn" onclick="goHub('david-goliath')">다윗과 골리앗</button><button class="btn" onclick="goHub('ark-presence')">언약궤와 임재</button><button class="btn gold" onclick="goHub('solomon-temple')">솔로몬 성전</button><button class="btn" onclick="goHub('kingdom-division')">왕국 분열</button></section>
 </main><nav><button onclick="alert('통일왕국 허브엔진은 다음 단계에서 연결됩니다.')">허브엔진</button><button onclick="scrollTo({top:0,behavior:'smooth'})">맨 위</button><button onclick="alert('분열왕국 Matrix 연결은 통합 단계에서 반영됩니다.')">분열왕국</button></nav>
