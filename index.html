@@ -136,6 +136,117 @@ nav{position:fixed;left:0;right:0;bottom:0;background:#111a2e;border-top:1px sol
   }
 }
 
+
+/* alignment fix v3: cross center + label/hub separation */
+.axis.h{
+  top:330px !important;
+}
+.axis.v{
+  left:50% !important;
+  top:185px !important;
+  height:535px !important;
+}
+.center{
+  top:330px !important;
+  left:50% !important;
+  transform:translate(-50%,-50%) !important;
+}
+
+/* left/right top hubs: hub above horizontal line, label below line */
+.h1{
+  left:5% !important;
+  top:218px !important;
+}
+.h2{
+  right:5% !important;
+  top:218px !important;
+}
+.fl2{
+  left:7% !important;
+  top:356px !important;
+}
+.fl3{
+  right:7% !important;
+  top:356px !important;
+}
+
+/* lower hubs remain lower, split label between them and final hub */
+.h3{
+  left:5% !important;
+  top:430px !important;
+}
+.h4{
+  right:5% !important;
+  top:430px !important;
+}
+.fl4{
+  top:548px !important;
+}
+.crack{
+  top:580px !important;
+  height:118px !important;
+}
+.h5{
+  top:680px !important;
+}
+.nextBox{
+  bottom:8px !important;
+  width:78% !important;
+  z-index:1 !important;
+}
+.matrix{
+  min-height:840px !important;
+}
+
+@media(max-width:420px){
+  .matrix{
+    min-height:825px !important;
+  }
+  .axis.h{
+    top:328px !important;
+  }
+  .center{
+    top:328px !important;
+  }
+  .h1{
+    left:3% !important;
+    top:214px !important;
+  }
+  .h2{
+    right:3% !important;
+    top:214px !important;
+  }
+  .fl2{
+    left:5% !important;
+    top:352px !important;
+  }
+  .fl3{
+    right:5% !important;
+    top:352px !important;
+  }
+  .h3{
+    left:3% !important;
+    top:424px !important;
+  }
+  .h4{
+    right:3% !important;
+    top:424px !important;
+  }
+  .fl4{
+    top:540px !important;
+  }
+  .crack{
+    top:570px !important;
+  }
+  .h5{
+    top:665px !important;
+  }
+  .nextBox{
+    bottom:8px !important;
+    width:88% !important;
+  }
+}
+
 </style></head><body>
 <header><div class="top"><button class="back" onclick="history.back()">←</button><div class="title"><b>통일왕국 Matrix</b><span>시온 · 성전 · 왕권 · 언약의 황금기</span></div><div class="badge">BC1050~930</div></div></header>
 <main class="wrap">
