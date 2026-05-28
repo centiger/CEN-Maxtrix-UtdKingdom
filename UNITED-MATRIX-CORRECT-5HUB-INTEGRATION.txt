@@ -1,0 +1,16 @@
+통일왕국 Matrix + 통일왕국 5허브 통합엔진 재통합 완료
+
+이번 작업 기준:
+- 업로드된 분열왕국 허브 파일은 사용하지 않음
+- 이전에 생성한 통일왕국 5허브 통합엔진을 사용함
+
+연결 구조:
+- 다윗과 골리앗 → hubs/index.html?hub=david-goliath
+- 언약궤와 임재 → hubs/index.html?hub=ark-presence
+- 다윗언약과 시온 → hubs/index.html?hub=david-covenant
+- 솔로몬 성전 영광 → hubs/index.html?hub=solomon-temple
+- 왕국분열 → hubs/index.html?hub=kingdom-division
+
+업로드:
+- 압축 해제 후 루트 전체를 GitHub에 업로드
+- hubs 폴더 반드시 포함

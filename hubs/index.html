@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CEN 통일왕국 허브엔진</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#16213a">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3ead5;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#21190f}
+.top{position:sticky;top:0;z-index:999;background:linear-gradient(135deg,#111b34,#26385e 55%,#7c561c);padding:12px;color:#fff;display:flex;gap:10px;align-items:center;box-shadow:0 5px 18px rgba(40,25,8,.22)}
+.top button{height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-weight:900}
+.top .back{width:38px;font-size:18px}
+.top .menu{padding:0 12px;margin-left:auto}
+.titlebox{min-width:0;flex:1}.titlebox b{display:block;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.titlebox span{font-size:11px;color:#f1dfbd}
+.wrap{max-width:760px;margin:0 auto;padding:12px 10px 112px;position:relative;z-index:1}
+.hero{border-radius:22px;padding:16px;border:1px solid #c9aa71;background:linear-gradient(135deg,#fff8e8,#e7c98f 70%,#b47a2b);box-shadow:0 4px 14px rgba(80,50,20,.12)}
+.hero.warn{background:linear-gradient(135deg,#fff5e4,#ddb57c 70%,#8b4a2a);border-color:#b48a56}
+.hero h1{margin:8px 0 0;font-size:28px;color:#16213a;line-height:1.12}
+.hero.warn h1{color:#23150e}
+.hero p{line-height:1.58;color:#5c4426;font-weight:700;margin:9px 0 0;font-size:13.5px}
+.kicker{font-size:11px;font-weight:900;color:#7d5524}
+.mood{margin-top:10px;display:inline-block;border-radius:999px;padding:6px 10px;background:rgba(22,33,58,.09);border:1px solid rgba(124,86,28,.25);color:#5c3f19;font-size:12px;font-weight:900}
+.sec{margin-top:16px}.sec h2{font-size:15px;color:#16213a;border-left:6px solid #b9862e;padding-left:8px;margin:0 0 8px}
+.warnTitle h2{border-left-color:#9c5a2b}
+.card{background:#fffaf0;border:1px solid #d2bd96;border-radius:18px;padding:12px;position:relative;z-index:1}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;overflow:hidden}
+.flow.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.flow.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+.node{background:#f4ecd8;border:1px solid #d1bb92;border-radius:14px;padding:8px;text-align:center;position:relative;min-width:0}
+.node:not(:last-child)::after{content:'›';position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:#9a6b24;font-weight:900;font-size:20px}
+.warnArrow .node:not(:last-child)::after{color:#8f4f25}
+.node .ico{font-size:20px}.node b{display:block;font-size:10.5px;margin-top:4px}.node small{display:block;font-size:8.5px;color:#6b583f;margin-top:3px;line-height:1.25}
+.map img{width:100%;border-radius:14px;border:1px solid #ccb183;display:block}
+.mapExplain{margin-top:10px;background:#f7efdc;border:1px solid #d7bd8c;border-radius:14px;padding:10px 11px;font-size:12px;line-height:1.55;color:#4f3922;font-weight:700}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.links button{padding:12px 7px;border-radius:14px;border:1px solid #c4a87b;background:#fff7e6;font-weight:900;color:#21190f}
+.links button.next{background:#7b561c;color:#fff6d5;border-color:#d9a943}
+.links button.warnNext{background:#7b2f1c;color:#fff6d5;border-color:#d99a43}
+.hubMessage{margin-top:12px;background:linear-gradient(135deg,#16213a,#7c561c);color:#fff5d7;border-radius:16px;padding:13px 12px;text-align:center;font-size:14px;line-height:1.45;font-weight:900}
+.hubMessage.warn{background:linear-gradient(135deg,#3d1f1b,#7c561c)}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#efe3ca;border-top:1px solid #ccb183;display:flex;gap:8px;padding:10px;box-shadow:0 -6px 16px rgba(60,40,15,.16)}
+.bottom button{flex:1;padding:10px 4px;border-radius:12px;border:1px solid #c4a87b;background:#fff7e6;font-weight:900;font-size:11px;color:#21190f}
+.drawer{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:1200;align-items:flex-end}
+.drawer.show{display:flex}.drawerPanel{width:100%;max-height:76vh;overflow:auto;background:#fffaf0;border-radius:20px 20px 0 0;border:1px solid #d2bd96}
+.drawerHead{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eadfc6}
+.drawerHead button{width:34px;height:34px;border:0;border-radius:10px;background:#eadfc6;font-size:22px}
+.hubItem{width:100%;text-align:left;border:0;border-bottom:1px solid #eadfc6;background:#fffaf0;padding:13px 16px}
+.hubItem b{display:block;color:#16213a}.hubItem span{font-size:12px;color:#6d5b40}
+@media(max-width:430px){
+  .flow,.flow.five,.flow.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .node:not(:last-child)::after{display:none}
+  .hero h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+<button class="back" onclick="goMatrix()">←</button>
+<div class="titlebox"><b id="topTitle">통일왕국 허브</b><span id="topSub">시온 · 성전 · 왕권 · 언약</span></div>
+<button class="menu" onclick="openDrawer()">허브</button>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<nav class="bottom">
+<button onclick="goMatrix()">Matrix</button>
+<button onclick="openDrawer()">허브목록</button>
+<button id="nextBottom">다음 허브</button>
+</nav>
+
+<div class="drawer" id="drawer">
+  <div class="drawerPanel">
+    <div class="drawerHead"><b>통일왕국 허브목록</b><button onclick="closeDrawer()">×</button></div>
+    <div id="hubList"></div>
+  </div>
+</div>
+
+<script>
+const HUBS = [
+  {
+    slug:'david-goliath', title:'다윗과 골리앗', sub:'선택된 왕의 시작', kicker:'통일왕국 허브 01',
+    hero:'믿음으로 거인을 넘다',
+    text:'엘라 골짜기에서 다윗은 무기나 외형이 아니라 여호와의 이름으로 골리앗과 맞섭니다.',
+    mood:'두려움 앞에 선 믿음의 왕',
+    flowTitle:'핵심 흐름',
+    flow:[['🫒','기름부음','선택된 왕'],['⚔️','골리앗','두려움의 상징'],['🙏','믿음 고백','여호와의 이름'],['🪨','물맷돌','거인의 패배']],
+    map:'assets/maps/david-goliath-map.png',
+    mapExplain:'엘라 골짜기는 이스라엘과 블레셋이 마주 선 전장입니다. 다윗은 베들레헴에서 이곳으로 와 골리앗의 조롱을 듣고, 여호와의 이름으로 두려움의 구조를 깨뜨립니다.',
+    elements:[['🧑‍🦱','다윗','믿음의 목자'],['🛡️','골리앗','두려움의 상징'],['👑','사울','외형적 왕권'],['🏞️','엘라 골짜기','믿음의 전장']],
+    prev:'', next:'ark-presence',
+    links:[['사무엘의 기름부음',''],['언약궤와 임재','ark-presence','next'],['다윗언약과 시온','david-covenant'],['메시아 왕권','']],
+    message:'왕의 자격은 무기가 아니라<br>하나님을 신뢰하는 믿음에서 시작됩니다.'
+  },
+  {
+    slug:'ark-presence', title:'언약궤와 하나님의 임재', sub:'임재 중심 왕국의 시작', kicker:'통일왕국 허브 02',
+    hero:'왕국의 중심을 시온으로 옮기다',
+    text:'다윗은 언약궤를 예루살렘으로 옮기며 왕국의 중심이 군사력이나 왕권이 아니라 하나님의 임재임을 드러냅니다.',
+    mood:'왕국의 중심은 왕좌보다 임재다',
+    flow:[['📦','언약궤','임재의 상징'],['⚠️','웃사 사건','거룩함의 경고'],['🏠','오벧에돔','복이 임함'],['🎶','시온 입성','다윗의 찬양']],
+    map:'assets/maps/ark-presence-map.png',
+    mapExplain:'언약궤는 기럇여아림에서 오벧에돔을 거쳐 예루살렘으로 옮겨집니다. 이 이동은 왕국의 중심이 하나님의 임재로 재정렬되는 사건입니다.',
+    elements:[['📦','언약궤','하나님의 임재'],['👑','다윗','임재를 사모함'],['⚠️','웃사','거룩함의 경계'],['🏔️','시온','왕국 중심']],
+    prev:'david-goliath', next:'david-covenant',
+    links:[['다윗과 골리앗','david-goliath'],['다윗언약과 시온','david-covenant','next'],['솔로몬 성전 영광','solomon-temple'],['성경연대기','']],
+    message:'왕국의 영광은 성전에서 시작되지 않습니다.<br>먼저 임재를 중심에 모시는 데서 시작됩니다.'
+  },
+  {
+    slug:'david-covenant', title:'다윗언약과 시온', sub:'영원한 왕권의 약속', kicker:'통일왕국 허브 03',
+    hero:'시온에 세워지는 영원한 왕권',
+    text:'하나님은 다윗과 언약을 맺으시며 그의 왕위가 영원히 이어질 것을 약속하십니다.',
+    mood:'시온은 메시아 왕권의 상징이 된다',
+    flow:[['👑','다윗 왕권','통일왕국'],['🏔️','시온','왕국 중심'],['📜','다윗언약','영원한 왕위'],['✡️','메시아','다윗의 자손']],
+    map:'assets/maps/david-covenant-map.png',
+    mapExplain:'다윗은 시온을 왕국의 중심으로 세우고, 하나님은 그 왕권이 영원히 이어질 것이라 약속하십니다.',
+    elements:[['👑','다윗','언약의 왕'],['🏙️','예루살렘','시온의 도시'],['📜','언약','영원한 약속'],['✡️','메시아','다윗의 자손']],
+    prev:'ark-presence', next:'solomon-temple',
+    links:[['언약궤와 임재','ark-presence'],['솔로몬 성전 영광','solomon-temple','next'],['왕국 분열','kingdom-division'],['성경연대기','']],
+    message:'다윗언약은 한 왕조의 약속을 넘어<br>메시아 왕국으로 이어집니다.'
+  },
+  {
+    slug:'solomon-temple', title:'솔로몬 성전 영광', sub:'통일왕국의 절정', kicker:'통일왕국 허브 04',
+    hero:'하늘의 영광이 성전에 임하다',
+    text:'솔로몬은 예루살렘에 성전을 세우고 언약궤를 안치합니다. 하나님의 영광이 성전에 가득 차며 통일왕국은 절정에 이릅니다.',
+    mood:'왕국의 절정은 하나님의 영광이 머무는 곳이다',
+    flow:[['🏗️','성전 건축','예루살렘'],['📦','언약궤 안치','지성소'],['🙏','봉헌 기도','솔로몬'],['☁️','영광의 구름','임재 충만'],['✨','황금기','통일왕국 절정']],
+    map:'assets/maps/solomon-temple-map.png',
+    mapExplain:'솔로몬은 시온 중심에 성전을 세우고 언약궤를 안치합니다. 성전은 하나님의 영광이 머무는 왕국 중심이 됩니다.',
+    elements:[['👑','솔로몬','지혜의 왕'],['🏛️','성전','하나님의 집'],['📦','언약궤','임재의 중심'],['☁️','영광','구름의 충만'],['✨','황금기','왕국 절정']],
+    prev:'david-covenant', next:'kingdom-division',
+    links:[['다윗언약과 시온','david-covenant'],['왕국 분열','kingdom-division','next'],['포로와 성전파괴',''],['성경연대기','']],
+    message:'성전의 영광은 통일왕국의 절정이지만,<br>이후 무너질 왕국의 대비도 함께 보여줍니다.'
+  },
+  {
+    slug:'kingdom-division', title:'왕국분열', sub:'영광 이후의 붕괴', kicker:'통일왕국 허브 05',
+    hero:'하나였던 왕국이 둘로 갈라지다',
+    text:'솔로몬 말년의 우상숭배와 무거운 통치는 왕국 내부의 균열을 키웠고, 르호보암 시대에 이르러 이스라엘은 북이스라엘과 남유다로 분열됩니다.',
+    mood:'영광의 절정 뒤에는 분열의 그림자가 드리운다',
+    warn:true,
+    flow:[['👑','솔로몬 말년','우상숭배'],['⚖️','무거운 통치','백성 부담'],['🏛️','르호보암','강경 대응'],['📍','세겜 집회','갈등 폭발'],['⚔️','왕국 분열','남북 분리'],['🧭','분열왕국','새 시대 시작']],
+    map:'assets/maps/kingdom-division-map.png',
+    mapExplain:'예루살렘 중심의 통일왕국은 세겜 집회를 기점으로 북이스라엘과 남유다로 갈라집니다. 이후 성경 역사는 분열왕국 시대로 들어갑니다.',
+    elements:[['👑','르호보암','남유다'],['🐂','여로보암','북이스라엘'],['🏙️','예루살렘','남유다 중심'],['📍','세겜','분열 시작'],['⚔️','남북왕국','긴 갈등'],['📖','새 흐름','분열왕국 Matrix']],
+    prev:'solomon-temple', next:'',
+    links:[['솔로몬 성전 영광','solomon-temple'],['분열왕국 Matrix','','nextWarn'],['엘리야와 갈멜산',''],['성경연대기','']],
+    message:'통일왕국의 붕괴는 하나님 중심에서 벗어난<br>왕국의 결과를 보여줍니다.'
+  }
+];
+
+function getSlug(){
+  return new URLSearchParams(location.search).get('hub') || 'david-goliath';
+}
+function hubBySlug(slug){return HUBS.find(h=>h.slug===slug)||HUBS[0];}
+function goHub(slug){
+  if(!slug){return;}
+  history.pushState(null,'',`?hub=${slug}`);
+  render(slug);
+  window.scrollTo(0,0);
+}
+function goMatrix(){ location.href='../index.html'; }
+function render(slug){
+  const h=hubBySlug(slug);
+  document.getElementById('topTitle').textContent=h.title;
+  document.getElementById('topSub').textContent=h.sub;
+  document.title=h.title;
+  const flowClass = h.flow.length===5?' five':h.flow.length===6?' six':'';
+  const warnClass = h.warn?' warn':'';
+  const warnArrow = h.warn?' warnArrow':'';
+  const links = h.links.map(l=>{
+    let cls = l[2]==='next'?'next':(l[2]==='nextWarn'?'warnNext':'');
+    let action = l[1] ? `onclick="goHub('${l[1]}')"` : (l[2]==='nextWarn' ? `onclick="alert('분열왕국 Matrix 통합 단계에서 연결됩니다.')"` : '');
+    return `<button class="${cls}" ${action}>${l[0]}</button>`;
+  }).join('');
+  document.getElementById('app').innerHTML = `
+    <section class="hero${warnClass}">
+      <div class="kicker">${h.kicker}</div>
+      <h1>${h.hero}</h1>
+      <p>${h.text}</p>
+      <div class="mood">${h.mood}</div>
+    </section>
+
+    <section class="sec ${h.warn?'warnTitle':''}">
+      <h2>핵심 흐름</h2>
+      <div class="card flow${flowClass} ${warnArrow}">${nodes(h.flow)}</div>
+    </section>
+
+    <section class="sec">
+      <h2>지도</h2>
+      <div class="card map">
+        <img src="${h.map}?v=1">
+        <div class="mapExplain">${h.mapExplain}</div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>핵심 요소</h2>
+      <div class="card flow${h.elements.length===5?' five':h.elements.length===6?' six':''} ${warnArrow}">${nodes(h.elements)}</div>
+    </section>
+
+    <section class="sec">
+      <h2>연결탐험</h2>
+      <div class="links">${links}</div>
+      <div class="hubMessage${h.warn?' warn':''}">${h.message}</div>
+    </section>
+  `;
+  document.getElementById('nextBottom').onclick = () => h.next ? goHub(h.next) : alert('분열왕국 Matrix 통합 단계에서 연결됩니다.');
+  renderList();
+}
+function nodes(items){
+  return items.map(n=>`<div class="node"><div class="ico">${n[0]}</div><b>${n[1]}</b><small>${n[2]}</small></div>`).join('');
+}
+function renderList(){
+  const cur=getSlug();
+  document.getElementById('hubList').innerHTML = HUBS.map((h,i)=>`
+    <button class="hubItem" onclick="closeDrawer();goHub('${h.slug}')">
+      <b>${i+1}. ${h.title}${h.slug===cur?' · 현재':''}</b>
+      <span>${h.sub}</span>
+    </button>
+  `).join('');
+}
+function openDrawer(){document.getElementById('drawer').classList.add('show');renderList();}
+function closeDrawer(){document.getElementById('drawer').classList.remove('show');}
+document.getElementById('drawer').addEventListener('click',e=>{if(e.target.id==='drawer')closeDrawer();});
+window.addEventListener('popstate',()=>render(getSlug()));
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+render(getSlug());
+</script>
+</body>
+</html>
