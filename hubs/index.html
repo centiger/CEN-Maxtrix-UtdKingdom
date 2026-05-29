@@ -143,7 +143,7 @@ const HUBS = [
     mapExplain:'예루살렘 중심의 통일왕국은 세겜 집회를 기점으로 북이스라엘과 남유다로 갈라집니다. 이후 성경 역사는 분열왕국 시대로 들어갑니다.',
     elements:[['👑','르호보암','남유다'],['🐂','여로보암','북이스라엘'],['🏙️','예루살렘','남유다 중심'],['📍','세겜','분열 시작'],['⚔️','남북왕국','긴 갈등'],['📖','새 흐름','분열왕국 Matrix']],
     prev:'solomon-temple', next:'',
-    links:[['솔로몬 성전 영광','solomon-temple'],['분열왕국 Matrix','','nextWarn'],['엘리야와 갈멜산',''],['성경연대기','']],
+    links:[['솔로몬 성전 영광','solomon-temple'],['분열왕국 Matrix','external:division','nextWarn'],['엘리야와 갈멜산',''],['성경연대기','']],
     message:'통일왕국의 붕괴는 하나님 중심에서 벗어난<br>왕국의 결과를 보여줍니다.'
   }
 ];
@@ -159,6 +159,10 @@ function goHub(slug){
   window.scrollTo(0,0);
 }
 function goMatrix(){ location.href='../index.html'; }
+function goExternal(key){
+  const urls = { division: 'https://centiger.github.io/CEN-Matrix/' };
+  if(urls[key]) location.href = urls[key];
+}
 function render(slug){
   const h=hubBySlug(slug);
   document.getElementById('topTitle').textContent=h.title;
@@ -169,7 +173,7 @@ function render(slug){
   const warnArrow = h.warn?' warnArrow':'';
   const links = h.links.map(l=>{
     let cls = l[2]==='next'?'next':(l[2]==='nextWarn'?'warnNext':'');
-    let action = l[1] ? `onclick="goHub('${l[1]}')"` : (l[2]==='nextWarn' ? `onclick="alert('분열왕국 Matrix 통합 단계에서 연결됩니다.')"` : '');
+    let action = l[1] ? (String(l[1]).startsWith('external:') ? `onclick="goExternal('${String(l[1]).split(':')[1]}')"` : `onclick="goHub('${l[1]}')"`) : (l[2]==='nextWarn' ? `onclick="alert('분열왕국 Matrix 통합 단계에서 연결됩니다.')"` : '');
     return `<button class="${cls}" ${action}>${l[0]}</button>`;
   }).join('');
   document.getElementById('app').innerHTML = `
@@ -204,7 +208,7 @@ function render(slug){
       <div class="hubMessage${h.warn?' warn':''}">${h.message}</div>
     </section>
   `;
-  document.getElementById('nextBottom').onclick = () => h.next ? goHub(h.next) : alert('분열왕국 Matrix 통합 단계에서 연결됩니다.');
+  document.getElementById('nextBottom').onclick = () => h.next ? goHub(h.next) : (h.slug==='kingdom-division' ? goExternal('division') : alert('다음 단계에서 연결됩니다.'));
   renderList();
 }
 function nodes(items){
